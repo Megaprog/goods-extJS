@@ -13,19 +13,19 @@ public class Goods {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "name")
     private String name;
 
     @Column(name = "price")
-    private Long price;
+    private long price;
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -37,7 +37,7 @@ public class Goods {
         this.name = name;
     }
 
-    public Long getPrice() {
+    public long getPrice() {
         return price;
     }
 
@@ -45,4 +45,32 @@ public class Goods {
         this.price = price;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Goods goods = (Goods) o;
+
+        if (price != goods.price) return false;
+        if (!name.equals(goods.name)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (int) (price ^ (price >>> 32));
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Goods{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

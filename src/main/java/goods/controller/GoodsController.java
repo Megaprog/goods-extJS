@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/goods")
@@ -18,23 +21,23 @@ public class GoodsController {
     protected GoodsService goodsService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public Collection<Goods> getCars(String search) {
+    public Collection<Goods> getGoods(@RequestParam(required = false) String search) {
         return goodsService.getGoods(search);
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ExtResult setCar(@RequestBody Goods goods) {
+    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
+    public ExtResult setGoods(@RequestBody Goods goods) {
         return new ExtResult(goodsService.add(goods), goods);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-    public String deleteCar(@RequestBody Goods goods) {
+    public String deleteGoods(@RequestBody Goods goods) {
         goodsService.delete(goods);
         return "delete";
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.PUT)
-    public ExtResult updateCar(@RequestBody Goods goods) {
+    public ExtResult updateGoods(@RequestBody Goods goods) {
         return new ExtResult(goodsService.update(goods), goods);
     }
 
@@ -65,6 +68,34 @@ public class GoodsController {
 
         public void setData(Goods data) {
             this.data = data;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            ExtResult extResult = (ExtResult) o;
+
+            if (success != extResult.success) return false;
+            if (!data.equals(extResult.data)) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            int result = (success ? 1 : 0);
+            result = 31 * result + data.hashCode();
+            return result;
+        }
+
+        @Override
+        public String toString() {
+            return "ExtResult{" +
+                    "success=" + success +
+                    ", data=" + data +
+                    '}';
         }
     }
 }
