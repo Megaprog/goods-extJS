@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class GoodsService {
         return findByGoods(goods.getName(), goods.getPrice()).isEmpty();
     }
 
-    protected List<Goods> findByGoods(String name, Long price) {
+    protected List<Goods> findByGoods(String name, long price) {
         return em.createNamedQuery("GoodsByNamePrice", Goods.class).setParameter("name", name).setParameter("price", price).getResultList();
     }
 
@@ -43,8 +44,14 @@ public class GoodsService {
     }
 
     @Transactional
-    public void delete(Goods goods) {
-        em.remove(em.getReference(Goods.class, goods.getId()));
+    public boolean delete(Goods goods) {
+        try {
+            em.remove(em.getReference(Goods.class, goods.getId()));
+            return true;
+        }
+        catch (EntityNotFoundException e) {
+            return false;
+        }
     }
 
     @Transactional(readOnly = true)

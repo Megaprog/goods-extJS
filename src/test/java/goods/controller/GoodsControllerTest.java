@@ -73,9 +73,9 @@ public class GoodsControllerTest extends AbstractMvcTest {
 
     protected Goods createGoods() {
         final Goods goods = new Goods();
-        goods.setId(1l);
+        goods.setId(1L);
         goods.setName("Редька");
-        goods.setPrice(100l);
+        goods.setPrice(100L);
         return goods;
     }
 }

@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping("/goods")
 public class GoodsController {
@@ -25,7 +23,7 @@ public class GoodsController {
         return goodsService.getGoods(search);
     }
 
-    @RequestMapping(method = RequestMethod.POST, consumes = APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST)
     public ExtResult setGoods(@RequestBody Goods goods) {
         return new ExtResult(goodsService.add(goods), goods);
     }

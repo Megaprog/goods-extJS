@@ -5,8 +5,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "goods")
 @NamedQueries({
-        @NamedQuery(name = "GoodsAll", query = "select g from Goods g"),
-        @NamedQuery(name = "GoodsByName", query = "select g from Goods g where g.name like :name"),
+        @NamedQuery(name = "GoodsAll", query = "select g from Goods g order by g.name"),
+        @NamedQuery(name = "GoodsByName", query = "select g from Goods g where g.name like :name order by g.name"),
         @NamedQuery(name = "GoodsByNamePrice", query = "select g from Goods g where g.name = :name and g.price = :price")
 })
 public class Goods {
