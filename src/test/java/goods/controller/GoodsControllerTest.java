@@ -6,6 +6,7 @@ import goods.service.GoodsService;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Collections;
@@ -15,6 +16,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+@ContextConfiguration(classes = GoodsController.class)
 public class GoodsControllerTest extends AbstractMvcTest {
 
     private static final String URL = "/goods";

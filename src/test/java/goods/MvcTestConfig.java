@@ -2,7 +2,6 @@ package goods;
 
 import goods.service.GoodsService;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
@@ -16,9 +15,6 @@ import static org.mockito.Mockito.mock;
 @PropertySource(value = "classpath:/test.properties", ignoreResourceNotFound = true)
 @EnableWebMvc
 @Import(CommonConfig.class)
-@ComponentScan(basePackages = {
-        "goods.controller"
-})
 public class MvcTestConfig extends WebConfig {
 
     @Bean
