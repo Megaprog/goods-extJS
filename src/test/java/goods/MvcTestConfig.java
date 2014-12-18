@@ -1,6 +1,5 @@
 package goods;
 
-import goods.service.GoodsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -21,10 +20,4 @@ public class MvcTestConfig extends WebConfig {
     public EntityManagerFactory entityManagerFactory() {
         return mock(EntityManagerFactory.class);
     }
-
-    @Bean
-    public GoodsService goodsService() {
-        return mock(GoodsService.class);
-    }
-
 }

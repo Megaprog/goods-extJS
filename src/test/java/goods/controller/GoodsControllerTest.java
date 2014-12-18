@@ -5,24 +5,34 @@ import goods.model.Goods;
 import goods.service.GoodsService;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Collections;
 
-import static org.mockito.Mockito.reset;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
-@ContextConfiguration(classes = GoodsController.class)
+@ContextConfiguration(classes = GoodsControllerTest.Config.class)
 public class GoodsControllerTest extends AbstractMvcTest {
+
+    static class Config {
+        @Bean
+        public GoodsController goodsController() {
+            return new GoodsController();
+        }
+
+        @Bean
+        public GoodsService goodsService() {
+            return goodsService;
+        }
+    }
 
     private static final String URL = "/goods";
 
-    @Autowired
-    GoodsService goodsService;
+    static GoodsService goodsService = mock(GoodsService.class);
 
     @Before
     public void setUp() throws Exception {
